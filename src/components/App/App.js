@@ -8,45 +8,40 @@ import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import PlaceForm from '../PlaceForm/PlaceForm';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import api from '../services/OpenWeatherApi';
+import api from '../../services/OpenWeatherApi';
 import './app.css';
-import { data } from './data';
-import { geoApi } from '../services/GeoYandexApi';
+import { geoApi } from '../../services/GeoYandexApi';
 
-geoApi.getCoords('Екатеринбург').then(res=>console.log(res)
+geoApi.getCoords('London').then(res=>console.log(res)
    );
+
+const arr = ['Москва', 'London', 'Sydney'];
 
 const App = () => {
   const [openedPopup, setOpenedPopup] = React.useState({});
   const [selectedCard, setSelectedCard] = React.useState(null);
   
-  const [cards, setCards] = React.useState([data]);
- 
+  const [cards, setCards] = React.useState([]);
+  const searchAndSetCard = place => {
+    return geoApi.getCoords(place)
+    .then(card=>{
+      setCards(cards=>{
+        const newCards = JSON.parse(JSON.stringify(cards));
+        return [...newCards, card]
+      })      
+    })    
+   }
 
-  React.useEffect(() => {
-   
-       
+  React.useEffect(() => {    
+   arr.forEach(searchAndSetCard)       
   }, []);
   
-  const onDeleteCardSubmit = e => {
-    e.preventDefault();
-    api
-      .removeCard(selectedCard._id)
-      .then(res => {
-        const ind = cards.findIndex(el => el._id === selectedCard._id);
-        setCards([...cards.slice(0, ind), ...cards.slice(ind + 1)]);
-        closeAllPopups();
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
 
-  const onAddCardSubmit = ({ name, link }) => {
-    api.addCard({ name, link }).then(card => {
-      setCards([...cards, card]);
-      closeAllPopups();
-    });
+
+  const onAddCardSubmit = ({ name }) => {
+    searchAndSetCard(name)
+    .finally(closeAllPopups);
+    
   };
 
   
@@ -66,18 +61,14 @@ const App = () => {
    
     <Router>
       <Header onAddPlace={handleAddPlaceClick}/>
-    <CardsList
+    {cards.length && <CardsList
         cards={cards}
-        
-        
-        
-        
         handleBasketIconClick={handleBasketIconClick}
-        onDeleteCardSubmit={onDeleteCardSubmit}
+        onDeleteCardSubmit={''}
         onClose={closeAllPopups}
         onAddCardSubmit={onAddCardSubmit}
         openedPopup={openedPopup}
-      />
+      />}
       <Footer />     
 
       {openedPopup.isAddPlacePopupOpen && (

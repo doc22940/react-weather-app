@@ -6,8 +6,7 @@ const PlaceForm = ({ onAddCardSubmit }) => {
   const { handleSubmit, register, errors } = useForm({
     mode: 'onChange',
   });
-  const handleData = (data) => {
-    console.log(data);
+  const handleData = (data) => {    
     onAddCardSubmit(data);
   };
 
@@ -24,7 +23,7 @@ const PlaceForm = ({ onAddCardSubmit }) => {
             },
             maxLength: {
               value: 30,
-              message: 'Должно быть не менее 30 символов',
+              message: 'Должно быть не менее 40 символов',
             },
           })}
           type='text'
@@ -41,28 +40,7 @@ const PlaceForm = ({ onAddCardSubmit }) => {
           </span>
         )}
       </label>
-      <label className='popup__label'>
-        <input
-          name='link'
-          ref={register({
-            required: 'Это поле необходимо заполнить',
-            pattern: {
-              value: /^(https:)/,
-              message: 'Должна быть ссылка',
-            },
-          })}
-          type='url'
-          id='place-link'
-          className={`popup__input ${errors.link ? 'popup__input_type_error' : ''}`}
-          placeholder='Ссылка на картинку'
-          required
-        />
-        {errors.link && (
-          <span className='popup__error' id='place-link-error'>
-            {errors.link.message}
-          </span>
-        )}
-      </label>
+     
       <button
         type='submit'
         className={`button popup__button ${errors.link || errors.name ? 'popup__button_disabled' : 0}`}

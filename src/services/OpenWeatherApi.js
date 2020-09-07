@@ -1,12 +1,24 @@
-import { renderLoading } from "../../utils/utils.js";
+import { renderLoading } from "../utils/utils.js";
 
 class OpenWeatherApi {
   constructor (APIkey){
     this._APIkey = APIkey;
   }
-  getWeather({lat, lon}){    
-    return fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${this._APIkey}`)
+  getWeather = ({lat, lon}) => {       
+    return fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${this._APIkey}&lang=ru`)
     .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+    .then(({ current, daily, hourly }) => {
+      console.log(current, daily, hourly)
+      current = { ...current, ...current.weather[0] };
+      current.temp = Math.round(+current.temp);
+      current.feels_like = Math.round(+current.feels_like);
+      delete current.weather;
+      daily.forEach((el, i) => {            
+        daily[i] = { ...daily[i], ...daily[i].weather[0] };
+        delete daily[i].weather;
+      });
+      return { current, daily, hourly };
+    })
     .catch(err => console.log(err))
   }
 }

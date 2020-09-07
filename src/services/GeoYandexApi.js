@@ -1,8 +1,9 @@
 import openWeatherApi from './OpenWeatherApi';
 
 class GeoYandexApi {
-  constructor(APIkey) {
+  constructor(APIkey, getWeather) {
     this._APIkey = APIkey;
+    this._getWeather = getWeather;
   }
 
   getCoords(searchString) {
@@ -17,19 +18,11 @@ class GeoYandexApi {
           Point: { pos },
         } = res.response.GeoObjectCollection.featureMember[0].GeoObject;
         const [lon, lat] = pos.split(' ');
-        return openWeatherApi.getWeather({ lon, lat }).then(({ current, daily }) => {
-          current = { ...current, ...current.weather[0] };
-          delete current.weather;
-          daily.forEach((el, i) => {
-            daily[i] = { ...daily[i], ...daily[i].weather[0] };
-            delete daily[i].weather;
-          });
-          return { name, description, current, daily };
-        });
-      })
-
+        return this._getWeather({ lon, lat })
+        .then(({ current, daily, hourly }) => ({ name, description, current, daily, hourly }))
+        })      
       .catch((err) => console.log(`Загрузка карточек: ${err}`));
   }
 }
 
-export const geoApi = new GeoYandexApi('957a067b-e592-4d17-8392-b70e6f96eb76');
+export const geoApi = new GeoYandexApi('957a067b-e592-4d17-8392-b70e6f96eb76', openWeatherApi.getWeather);

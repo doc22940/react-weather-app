@@ -8,27 +8,31 @@ export const renderLoading = (isLoading = false) => {
   currentActiveButton.textContent = 'Сохранить';
 };
 
-export const getConditions = (condition) => {
-  const conditions = {
-  'clear': 'Ясно',
-'partly-cloudy': 'Малооблачно',
-'cloudy': 'Облачно с прояснениями',
-'overcast': 'Пасмурно',
-'drizzle': 'Морось',
-'light-rain': 'Небольшой дождь',
-'rain': 'Дождь',
-'moderate-rain': 'Умеренно сильный дождь',
-'heavy-rain': 'Сильный дождь',
-'continuous-heavy-rain': 'Длительный сильный дождь',
-'showers': 'Ливень',
-'wet-snow': 'Дождь со снегом',
-'light-snow': 'Небольшой снег',
-'snow': 'Снег',
-'snow-showers': 'Снегопад',
-'hail': 'Град',
-'thunderstorm': 'Гроза',
-'thunderstorm-with-rain': 'Дождь с грозой',
-'thunderstorm-with-hail': 'Гроза с градом',
-  };
-  return conditions[condition];
+export const capitalize = (str) => {
+  return str.slice(0,1).toUpperCase()+str.slice(1,)
 }
+
+// export const getConditions = (condition) => {
+//   const conditions = {
+//   'clear': 'Ясно',
+// 'partly-cloudy': 'Малооблачно',
+// 'cloudy': 'Облачно с прояснениями',
+// 'overcast': 'Пасмурно',
+// 'drizzle': 'Морось',
+// 'light-rain': 'Небольшой дождь',
+// 'rain': 'Дождь',
+// 'moderate-rain': 'Умеренно сильный дождь',
+// 'heavy-rain': 'Сильный дождь',
+// 'continuous-heavy-rain': 'Длительный сильный дождь',
+// 'showers': 'Ливень',
+// 'wet-snow': 'Дождь со снегом',
+// 'light-snow': 'Небольшой снег',
+// 'snow': 'Снег',
+// 'snow-showers': 'Снегопад',
+// 'hail': 'Град',
+// 'thunderstorm': 'Гроза',
+// 'thunderstorm-with-rain': 'Дождь с грозой',
+// 'thunderstorm-with-hail': 'Гроза с градом',
+//   };
+//   return conditions[condition];
+// }
