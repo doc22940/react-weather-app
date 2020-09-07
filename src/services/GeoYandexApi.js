@@ -19,7 +19,10 @@ class GeoYandexApi {
         } = res.response.GeoObjectCollection.featureMember[0].GeoObject;
         const [lon, lat] = pos.split(' ');
         return this._getWeather({ lon, lat })
-        .then(({ current, daily, hourly }) => ({ name, description, current, daily, hourly }))
+        .then(res=> {
+          const _id = name+res.current.dt;
+          
+          return { name, description, _id, ...res }})
         })      
       .catch((err) => console.log(`Загрузка карточек: ${err}`));
   }

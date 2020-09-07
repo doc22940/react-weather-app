@@ -1,0 +1,32 @@
+.popup__content_details {
+  max-width: 430px;
+  width: 90%;
+  min-height: 600px;
+  background-color: #fff;
+  border-radius: 10px;
+  position: relative;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.details-popup__card {
+  
+}
+.details-popup__adress-main {
+  
+}
+.details-popup__adress-second {
+  
+}
+.details-popup__icon-i {
+  
+}
+.details-popup__temp-fact {
+  
+}
+.details-popup__main-condition {
+  
+}
+.details-popup__condition {
+  
+}

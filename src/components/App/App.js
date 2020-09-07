@@ -2,18 +2,16 @@ import React from 'react';
 import Header from '../Header/Header';
 import CardsList from '../CardsList/CardsList';
 import Footer from '../Footer/Footer';
-import ImagePopup from '../ImagePopup/ImagePopup';
+import DetailsPopup from '../DetailsPopup/DetailsPopup';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 
 import PlaceForm from '../PlaceForm/PlaceForm';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import api from '../../services/OpenWeatherApi';
+
 import './app.css';
 import { geoApi } from '../../services/GeoYandexApi';
-
-geoApi.getCoords('London').then(res=>console.log(res)
-   );
+import { data } from './data';
 
 const arr = ['Москва', 'London', 'Sydney'];
 
@@ -33,11 +31,9 @@ const App = () => {
    }
 
   React.useEffect(() => {    
-   arr.forEach(searchAndSetCard)       
+  //  arr.forEach(searchAndSetCard)       
   }, []);
   
-
-
   const onAddCardSubmit = ({ name }) => {
     searchAndSetCard(name)
     .finally(closeAllPopups);
@@ -80,14 +76,20 @@ const App = () => {
           <PlaceForm onAddCardSubmit={onAddCardSubmit} />
         </PopupWithForm>
       )}
-    
+
+    <DetailsPopup 
+            card={data} 
+            onClose={closeAllPopups} 
+            />
+
+
       <Route
         path="/cards/:id"
         render={({ match, history }) => {
           const id = match.params.id;
           const currentCard = cards.find(({ _id }) => id === _id);
           return (
-            currentCard && <ImagePopup 
+            currentCard && <DetailsPopup 
             card={currentCard} 
             onClose={()=>history.push('/cards/')}  
             />

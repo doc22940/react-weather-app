@@ -5,14 +5,11 @@ import { Route, NavLink } from 'react-router-dom';
 
 
 
-const CardsList = ({cards}) => {
-  
-  
-  
+const CardsList = ({cards}) => { 
 
-  const cardsElems = cards.map((card)=>{  
-    
-    return <Card     
+  const cardsElems = cards.map((card)=>{      
+    return <Card
+    key={card._id}     
     card={card}         
     />
   });  
@@ -21,7 +18,7 @@ const CardsList = ({cards}) => {
      <>
       <main className="content">    
     <section className="places page__section">
-      <ul className="places__list">        
+      <ul className="places__list page__section">        
         <Route path='/' render={()=>{
           return (
             cardsElems
