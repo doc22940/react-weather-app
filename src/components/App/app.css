@@ -7,6 +7,15 @@ a {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  font-family: 'Rubik', Arial, sans-serif;
+  
+}
+
+.bg-pan-top {
+	
+  background-image: linear-gradient(0deg,#3e91cc,#2dcca7);
+  background-size: 600% 600%;
+  animation: bg-pan-top 15s infinite alternate;
 }
 
 .tabs {
@@ -34,4 +43,13 @@ a {
   color: #fff;
   
   border-bottom: none;
+}
+
+@keyframes bg-pan-top {
+  0% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 50% 0%;
+  }
 }

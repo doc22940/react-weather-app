@@ -1,4 +1,3 @@
-/* eslint-disable default-case */
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -29,10 +28,8 @@ const PlaceForm = ({ onAddCardSubmit }) => {
           type='text'
           id='place-name'
           className={`popup__input ${errors.name ? 'popup__input_type_error' : ''}`}
-          placeholder='Название'
-          required
-          minLength='1'
-          maxLength='30'
+          placeholder='Введите адрес или город'
+          autoСomplete='off'
         />
         {errors.name && (
           <span className='popup__error' id='place-name-error'>
@@ -45,7 +42,7 @@ const PlaceForm = ({ onAddCardSubmit }) => {
         type='submit'
         className={`button popup__button ${errors.link || errors.name ? 'popup__button_disabled' : 0}`}
       >
-        Сохранить
+        Добавить
       </button>
     </form>
   );

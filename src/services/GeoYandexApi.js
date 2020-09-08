@@ -11,7 +11,7 @@ class GeoYandexApi {
       `https://geocode-maps.yandex.ru/1.x/?format=json&apikey=${this._APIkey}&geocode=${searchString}`
     )
       .then((res) => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)))
-      .then((res) => {
+      .then((res) => {               
         const {
           name,
           description,
@@ -23,8 +23,9 @@ class GeoYandexApi {
           const _id = name+res.current.dt;
           
           return { name, description, _id, ...res }})
-        })      
-      .catch((err) => console.log(`Загрузка карточек: ${err}`));
+        })
+        
+      
   }
 }
 

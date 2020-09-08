@@ -1,4 +1,4 @@
-import { renderLoading } from "../utils/utils.js";
+
 
 class OpenWeatherApi {
   constructor (APIkey){

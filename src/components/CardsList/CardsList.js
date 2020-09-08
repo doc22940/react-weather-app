@@ -1,13 +1,13 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import Card from '../Card/Card';
 
-import { Route, NavLink } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 
 
 const CardsList = ({cards}) => { 
 
-  const cardsElems = cards.map((card)=>{      
+  const cardsElems = cards.map((card)=>{       
     return <Card
     key={card._id}     
     card={card}         

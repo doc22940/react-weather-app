@@ -1,12 +1,3 @@
-export const renderLoading = (isLoading = false) => {
-  const currentActiveButton = document.querySelector('.popup_is-opened .popup__button');
-  if (isLoading) {
-    currentActiveButton.textContent = 'Загрузка...';
-    return;
-  }
-
-  currentActiveButton.textContent = 'Сохранить';
-};
 
 export const capitalize = (str) => {
   return str.slice(0,1).toUpperCase()+str.slice(1,)
@@ -23,11 +14,20 @@ export const timeConverter = (timestamp, offSet) => {
   };
   return date.toLocaleString('ru-Ru', options);
 };
-export const timeConverterFull = (timestamp, offSet) => {
+export const dateConverter = (timestamp, offSet) => {
   const date = new Date((timestamp - 10800 + offSet) * 1000);
   let options = {
     weekday: 'short',    
     month: 'long',
+    day: 'numeric'    
+  };
+  return date.toLocaleString('ru-Ru', options);
+};
+export const shortDateConverter = (timestamp, offSet) => {
+  const date = new Date((timestamp - 10800 + offSet) * 1000);
+  let options = {
+    weekday: 'short',    
+    month: 'numeric',
     day: 'numeric'    
   };
   return date.toLocaleString('ru-Ru', options);
@@ -62,7 +62,12 @@ export const windDirection = (deg) => {
   if (deg<180){return 'ЮВ'};
   if (deg<270){return 'ЮЗ'};
   if (deg<360){return 'СЗ'};
-}
+};
+
+export const addPlusOrMinus = (temp) => {
+  const rounded = Math.round(temp);
+  return rounded > 0 ? `+${rounded}°` : `${rounded}°`
+} 
 
 // export const getConditions = (condition) => {
 //   const conditions = {

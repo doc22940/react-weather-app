@@ -11,65 +11,57 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './app.css';
 import { geoApi } from '../../services/GeoYandexApi';
-import { data } from './data';
 
-const arr = ['Москва', 'London', 'Sydney'];
+const arr = ['Москва', 'Нью-Йорк', 'Париж' ];
 
 const App = () => {
-  const [openedPopup, setOpenedPopup] = React.useState({});
-  const [selectedCard, setSelectedCard] = React.useState(null);
+  const [openedPopup, setOpenedPopup] = React.useState({});  
   
   const [cards, setCards] = React.useState([]);
-  const searchAndSetCard = place => {
+  const searchAndSetCard = place => {    
     return geoApi.getCoords(place)
     .then(card=>{
       setCards(cards=>{
         const newCards = JSON.parse(JSON.stringify(cards));
         return [...newCards, card]
       })      
-    })    
-   }
+    })
+  }  
 
-  React.useEffect(() => {    
-  //  arr.forEach(searchAndSetCard)       
+  React.useEffect(() => {     
+   arr.forEach(searchAndSetCard)       
   }, []);
   
   const onAddCardSubmit = ({ name }) => {
-    searchAndSetCard(name)
-    .finally(closeAllPopups);
-    
+    searchAndSetCard(name)    
+    .then(closeAllPopups)
+    .catch((err) => console.log('Локация не найдена'));
   };
-
   
   const handleAddPlaceClick = () => {
     setOpenedPopup({ isAddPlacePopupOpen: true });
   };
   const handleBasketIconClick = card => {
-    setSelectedCard(card);
-    setOpenedPopup({ isDeleteCardPopupOpened: true });
+    
   };
   const closeAllPopups = () => {
     setOpenedPopup({});
-    setSelectedCard(false);
+    
   };  
 
   return (
    
     <Router>
       <Header onAddPlace={handleAddPlaceClick}/>
+
     {cards.length && <CardsList
         cards={cards}
-        handleBasketIconClick={handleBasketIconClick}
-        onDeleteCardSubmit={''}
-        onClose={closeAllPopups}
-        onAddCardSubmit={onAddCardSubmit}
-        openedPopup={openedPopup}
-      />}
-      <Footer />     
+        handleBasketIconClick={handleBasketIconClick} 
+      />}       
 
       {openedPopup.isAddPlacePopupOpen && (
         <PopupWithForm
-          title="Новое место"
+          title="Новый прогноз"
           name="new-card"
           onClose={closeAllPopups}
         >
@@ -77,27 +69,21 @@ const App = () => {
         </PopupWithForm>
       )}
 
-    <DetailsPopup 
-            card={data} 
-            onClose={closeAllPopups} 
-            />
-
-
       <Route
-        path="/cards/:id"
+        path="/:id"
         render={({ match, history }) => {
           const id = match.params.id;
           const currentCard = cards.find(({ _id }) => id === _id);
           return (
             currentCard && <DetailsPopup 
             card={currentCard} 
-            onClose={()=>history.push('/cards/')}  
+            onClose={()=>history.push('/')}  
             />
             
           );
         }}
       />
-     
+      <Footer />
     </Router>
    
 

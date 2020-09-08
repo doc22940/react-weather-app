@@ -1,26 +1,27 @@
-@import url('./__description/card__description.css');
-@import url('./__image/card__image.css');
-@import url('./__like-button/card__like-button.css');
-@import url('./__like-button/_is-active/card__like-button_is-active.css');
+
 @import url('./__delete-button/card__delete-button.css');
-@import url('./__delete-button/_hidden/card__delete-button_hidden.css');
-@import url('./__delete-button/_visible/card__delete-button_visible.css');
-@import url('./__title/card__title.css');
-@import url('./__like-count/card__like-count.css');
 
 .card {
   display: flex;
   flex-direction: column;
-
-  font-family: 'Inter', Arial, sans-serif;
+  background: #33B8B4;
+  font-family: 'Rubik', Arial, sans-serif;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 4px;
-  border: 1px solid grey;
+  color: rgb(31, 31, 31);
+  border: 1px solid #2eb3ae;
   position: relative;
   overflow: hidden;
   height: 346px;
   padding: 20px;
+  box-shadow: 0px 0px 10px #2a918e;
+  transition: transform 0.4s ease, background 0.4s ease;
+}
+
+.card:hover {
+  transform: scale(1.02);
+  background: #67C6BB;
 }
 
 .card__icon {
@@ -31,7 +32,7 @@
   background-repeat: no-repeat;
   box-sizing: border-box;
   z-index: -1;
-  font-size: 81px;
+  font-size: inherit;
   position: relative;
   margin-top: 26px;
   z-index: 10;
@@ -39,20 +40,20 @@
 
 .card__icon-i{
   margin-left: 18%;
-  
+  font-size: 80px;
 }
 
 .card__temp-fact {
   font-size: 75px;
   position: absolute;
-  right: 72px;
-  left: 34%;
+  right:0%;
+  
   bottom: -55px;
 }
 .card__condition {
   line-height: 26px;
   font-size: 18px;
-  filter: drop-shadow(0px 0px 7px white);
+ 
 }
 .card__main-condition {
   margin-top: auto;

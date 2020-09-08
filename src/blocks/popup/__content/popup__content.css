@@ -2,8 +2,9 @@
   max-width: 430px;
   width: 100%;
   min-height: 330px;
-  background-color: #fff;
-  border-radius: 10px;
+  background: #67C6BB;
+  color: rgb(44, 44, 44);
+  border-radius: 4px;
   position: relative;
   box-sizing: border-box;
   padding: 34px 36px;

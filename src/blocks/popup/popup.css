@@ -8,15 +8,13 @@
 @import url('./__button/popup__button.css');
 @import url('./__button/_disabled/popup__button_disabled.css');
 @import url('./__caption/popup__caption.css');
-@import url('./__image/popup__image.css');
 @import url('./__label/popup__label.css');
 @import url('./__error/popup__error.css');
 @import url('./__error/_visible/popup__error_visible.css');
-@import url('./_type/popup_type_remove-card.css');
-@import url('./_type/popup_type_edit-avatar.css');
+
 
 .popup {
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: 'Rubik', Arial, sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,3 +32,4 @@
   transition: visibility 0.2s ease, opacity 0.3s;
   z-index: 10;
 }
+

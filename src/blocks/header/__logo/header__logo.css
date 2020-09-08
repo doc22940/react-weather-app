@@ -2,12 +2,13 @@
   width: 225px;
   height: 33px;
   object-fit: contain;
-  color: black;
+  
 }
 
 .logo {
-  height: 45px;
-    margin-right: -3px;
+  margin-right: 4px;
+    font-size: 1.5em;
+    font-weight: bold;
 }
 
 @media screen and (max-width: 480px) {
