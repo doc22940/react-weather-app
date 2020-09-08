@@ -4,18 +4,15 @@
 .card {
   display: flex;
   flex-direction: column;
-  background: #33B8B4;
+  background: #44beba;
   font-family: 'Rubik', Arial, sans-serif;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
   border-radius: 4px;
   color: rgb(31, 31, 31);
-  border: 1px solid #2eb3ae;
   position: relative;
   overflow: hidden;
   height: 346px;
   padding: 20px;
-  box-shadow: 0px 0px 10px #2a918e;
+  box-shadow: 0px 0px 10px #509f9c;
   transition: transform 0.4s ease, background 0.4s ease;
 }
 

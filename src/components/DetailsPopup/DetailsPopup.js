@@ -7,10 +7,13 @@ import {
   shortDateConverter,
   addPlusOrMinus,
 } from '../../utils/utils';
+import { useHistory } from 'react-router-dom';
 
-const DetailsPopup = ({ card, onClose }) => {
-  
+
+const DetailsPopup = ({ card }) => {
+  const history = useHistory();
   const popup = useRef();
+  const onClose = () => history.push('/');
   const smoothClose = useCallback(() => {
     popup.current.classList.remove('popup_is-opened');
     popup.current.addEventListener('transitionend', onClose, true);

@@ -69,18 +69,11 @@ const App = () => {
         </PopupWithForm>
       )}
 
-      <Route
-        path="/:id"
-        render={({ match, history }) => {
-          const id = match.params.id;
-          const currentCard = cards.find(({ _id }) => id === _id);
-          return (
-            currentCard && <DetailsPopup 
-            card={currentCard} 
-            onClose={()=>history.push('/')}  
-            />
-            
-          );
+      <Route path="/:id" render={({ match }) => {
+          const currentCard = cards.find(({ _id }) => match.params.id === _id);
+          return <DetailsPopup 
+            card={currentCard}               
+            /> 
         }}
       />
       <Footer />

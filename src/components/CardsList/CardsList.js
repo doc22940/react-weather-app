@@ -20,9 +20,7 @@ const CardsList = ({cards}) => {
     <section className="places page__section">
       <ul className="places__list page__section">        
         <Route path='/' render={()=>{
-          return (
-            cardsElems
-          )
+          return cardsElems
         }} />             
       </ul>
     </section>

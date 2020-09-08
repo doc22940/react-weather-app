@@ -29,7 +29,7 @@ const PlaceForm = ({ onAddCardSubmit }) => {
           id='place-name'
           className={`popup__input ${errors.name ? 'popup__input_type_error' : ''}`}
           placeholder='Введите адрес или город'
-          autoСomplete='off'
+          autoComplete="off"
         />
         {errors.name && (
           <span className='popup__error' id='place-name-error'>

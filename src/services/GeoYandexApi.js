@@ -20,7 +20,7 @@ class GeoYandexApi {
         const [lon, lat] = pos.split(' ');
         return this._getWeather({ lon, lat })
         .then(res=> {
-          const _id = name+res.current.dt;
+          const _id = name+'&'+lon+'&'+lat;
           
           return { name, description, _id, ...res }})
         })
