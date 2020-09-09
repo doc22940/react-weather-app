@@ -58,10 +58,16 @@ export const mapPngToIcon = (png) => {
 };
 
 export const windDirection = (deg) => {
-  if (deg<90){return 'СВ'};
-  if (deg<180){return 'ЮВ'};
-  if (deg<270){return 'ЮЗ'};
-  if (deg<360){return 'СЗ'};
+  console.log(deg)
+  if (deg<=10){return 'С'};
+  if (deg<80){return 'СВ'};
+  if (deg<100){return 'В'};
+  if (deg<170){return 'ЮВ'};
+  if (deg<190){return 'Ю'};
+  if (deg<260){return 'ЮЗ'};
+  if (deg<280){return 'З'};
+  if (deg<350){return 'СЗ'};
+  if (deg<=360){return 'С'};
 };
 
 export const addPlusOrMinus = (temp) => {
@@ -69,6 +75,7 @@ export const addPlusOrMinus = (temp) => {
   return rounded > 0 ? `+${rounded}°` : `${rounded}°`
 } 
 
+// для Яндекс Погода API
 // export const getConditions = (condition) => {
 //   const conditions = {
 //   'clear': 'Ясно',

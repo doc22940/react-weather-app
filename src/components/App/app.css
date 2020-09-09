@@ -15,7 +15,7 @@ a {
 	
   background-image: linear-gradient(0deg,#73b1d1,#6bd4bc);
   background-size: 600% 600%;
-  animation: bg-pan-top 15s infinite alternate;
+  animation: bg-pan-top 5s infinite alternate;
 }
 
 .tabs {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import Button from '@material-ui/core/Button';
 
 const PlaceForm = ({ onAddCardSubmit }) => {
   const { handleSubmit, register, errors } = useForm({
@@ -37,13 +38,10 @@ const PlaceForm = ({ onAddCardSubmit }) => {
           </span>
         )}
       </label>
-     
-      <button
-        type='submit'
-        className={`button popup__button ${errors.link || errors.name ? 'popup__button_disabled' : 0}`}
-      >
-        Добавить
-      </button>
+      <Button variant="contained" type='submit'
+        className={`button popup__button ${errors.link || errors.name ? 'popup__button_disabled' : 0}`}>
+      Добавить
+    </Button>
     </form>
   );
 };

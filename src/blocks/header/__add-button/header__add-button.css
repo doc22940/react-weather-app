@@ -1,29 +1,20 @@
-.header__add-button {
+.header .header__add-button {
   width: 150px;
   height: 50px;
-  /* background: transparent url("../../../images/add-icon.svg") center no-repeat; */
-  background: transparent;
-  background-size: 22px;
-  font-size: 35px;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  
-  border: 2px solid rgb(0, 0, 0);
-  -webkit-transition: 0.3s;
-  -moz-transition: 0.3s;
-  -ms-transition: 0.3s;
-  -o-transition: 0.3s;
+  background: #44beba;
+  font-size: 32px;
   transition: 0.3s;
   cursor: pointer;
   margin-left: auto;
+  border-radius: 2px;
 }
 
-.header__add-button:hover {
-  opacity: 0.6;
+.header .header__add-button:hover {
+  background: #6DC9C2;
 }
 
 @media screen and (max-width: 740px) {
-  .header__add-button {
+  .header .header__add-button {
     width: 50px;
     height: 50px;
   }

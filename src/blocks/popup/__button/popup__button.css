@@ -1,4 +1,4 @@
-.popup__button {
+.popup .popup__button {
   width: 100%;
   height: 50px;
   font-size: 18px;
@@ -15,12 +15,12 @@
   font-family: inherit;
 }
 
-.popup__button:hover {
+.popup .popup__button:hover {
   background: rgba(0, 0, 0, 0.8);
 }
 
 @media screen and (max-width: 568px) {
-  .popup__button {
+  .popup .popup__button {
     font-size: 14px;
     line-height: 17px;
   }
