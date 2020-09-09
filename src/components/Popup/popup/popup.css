@@ -38,3 +38,9 @@
   max-width: 382px;
   min-height: 150px;
 }
+
+.popup_is-opened {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: all;
+}

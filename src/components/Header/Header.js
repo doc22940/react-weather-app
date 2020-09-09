@@ -1,5 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import './header/header.css';
+
 
 const Header = ({onAddPlace}) => {
   return (

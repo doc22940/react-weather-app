@@ -58,7 +58,6 @@ export const mapPngToIcon = (png) => {
 };
 
 export const windDirection = (deg) => {
-  console.log(deg)
   if (deg<=10){return 'С'};
   if (deg<80){return 'СВ'};
   if (deg<100){return 'В'};

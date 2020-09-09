@@ -1,3 +1,15 @@
+@import url('../../vendor/normalize.css');
+@import url('../../vendor/css/weather-icons.css');
+
+@keyframes bg-pan-top {
+  0% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 50% 0%;
+  }
+}
+
 a {
   border: none;
   text-decoration: none
@@ -11,6 +23,33 @@ a {
   
 }
 
+.content {
+  flex-shrink: 0;
+  flex-grow: 1;  
+}
+
+.page__section {
+  width: 100%;
+  max-width: 882px;  
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  margin: 0 auto;
+  
+}
+
+.page__content {
+  background-color: black;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;  
+}
+
+
+
 .bg-pan-top {
 	
   background-image: linear-gradient(0deg,#73b1d1,#6bd4bc);
@@ -18,38 +57,10 @@ a {
   animation: bg-pan-top 5s infinite alternate;
 }
 
-.tabs {
-  color: #fff;
-  display: flex;
-  font-family: 'Inter', Arial, sans-serif;
-  font-size: 20px;
-  
-}
 
-.tab {
-  padding: 7px 20px;
-  border: solid 1px rgb(184, 184, 184);
-  color: rgb(184, 184, 184);
-  border-top-left-radius: 12px;
-  border-top-right-radius: 15px;
-  margin-right: 4px;
-  border-bottom: none;
-  background: linear-gradient(to bottom, rgb(31, 31, 31) 70%, black);
-  transition: transform 0.2s ease;
-}
 
-.tab_active {
-  transform: scale(1.2);
-  color: #fff;
-  
-  border-bottom: none;
-}
-
-@keyframes bg-pan-top {
-  0% {
-    background-position: 50% 100%;
-  }
-  100% {
-    background-position: 50% 0%;
+@media screen and (max-width: 1140px) {
+  .page__section {
+    width: calc(100% - 40px);
   }
 }

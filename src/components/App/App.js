@@ -3,12 +3,14 @@ import Header from "../Header/Header";
 import CardsList from "../CardsList/CardsList";
 import Footer from "../Footer/Footer";
 import DetailsPopup from "../DetailsPopup/DetailsPopup";
-import PopupWithForm from "../PopupWithForm/PopupWithForm";
+import Popup from "../Popup/Popup";
 import PlaceForm from "../PlaceForm/PlaceForm";
 import { Route } from "react-router-dom";
 import { geoApi } from "../../services/GeoYandexApi";
+import withErrorBoundry from "../hocs/withErrorBoundry";
 import "./app.css";
 import Loader from "../Loader/Loader";
+
 
 const places = ["Москва", "Калифорния", "Веллингтон"];
 
@@ -16,26 +18,32 @@ const App = () => {
   const [cards, setCards] = React.useState([]);
   const [openedPopup, setOpenedPopup] = React.useState({});
   const [searchError, setSearchError] = React.useState(false);
-
-  const searchAndSetCard = place => {
+  const [isLoading, setIsLoading] = React.useState(true)
+  const desableLoading = () => setTimeout(() => {
+    setIsLoading(false);
+  }, 1000)
+  
+  const getWeatherData = place => {
+    setIsLoading(true);
     return geoApi.getCoords(place).then(card => {
       setCards(cards => {
         const newCards = JSON.parse(JSON.stringify(cards));
         return [...newCards, card];
       });
+      desableLoading();
     });
   };
 
   React.useEffect(() => {
-    places.forEach(searchAndSetCard);
+    places.forEach(getWeatherData);
   }, []);
 
   const onAddCardSubmit = ({ name }) => {
-    searchAndSetCard(name)
+    getWeatherData(name)
       .then(closeAllPopups)
       .catch(err => {
         setSearchError(err);
-        console.log("Локация не найдена");
+        desableLoading();          
       });
   };
 
@@ -53,41 +61,45 @@ const App = () => {
 
   return (
     <>
-      <Header onAddPlace={handleAddPlaceClick} />
-
-      {cards.length 
-      ? <CardsList cards={cards} onBasketClick={deleteCard} />
-      : ""}
+      <Header onAddPlace={handleAddPlaceClick} />       
+      <CardsList cards={cards} onBasketClick={deleteCard} />      
 
       {openedPopup.isAddPlacePopupOpen && (
-        <PopupWithForm
+        <Popup
           title="Новый прогноз"
           name="new-card"
           onClose={closeAllPopups} >
           <PlaceForm onAddCardSubmit={onAddCardSubmit} />
-        </PopupWithForm>
+        </Popup>
       )}
 
       {searchError && (
-        <PopupWithForm
+        <Popup
           title="Упс!"
           name="not-found"
           onClose={() => setSearchError(false)}>
-          <p>Введенный адрес не найден.</p>
-        </PopupWithForm>
+          <p>Адрес не найден.</p>
+        </Popup>
       )}
 
       <Route
         path="/:id"
-        render={({ match }) => {
+        render={({ match, history }) => {
           const currentCard = cards.find(({ _id }) => match.params.id === _id);
-          return currentCard && <DetailsPopup card={currentCard} />;
+          return currentCard && 
+        <Popup          
+          name="details"
+          onClose={() => history.push('/')}>
+          <DetailsPopup card={currentCard} />
+        </Popup>
+          ;
         }}
       />
-      <Loader />
+      <Loader isLoading={isLoading}/>
       <Footer />
     </>
   );
 };
 
-export default App;
+export default withErrorBoundry(App);
+

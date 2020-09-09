@@ -6,12 +6,15 @@ class GeoYandexApi {
     this._getWeather = getWeather;
   }
 
-  getCoords(searchString) {
+  getCoords = (searchString) => {    
     return fetch(
       `https://geocode-maps.yandex.ru/1.x/?format=json&apikey=${this._APIkey}&geocode=${searchString}`
     )
       .then((res) => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)))
-      .then((res) => {               
+      .then((res) => {
+        if(!res.response.GeoObjectCollection.featureMember.length){
+          throw new Error('Локация не найдена');          
+        }              
         const {
           name,
           description,
@@ -23,7 +26,12 @@ class GeoYandexApi {
           const _id = name+'&'+lon+'&'+lat;
           
           return { name, description, _id, ...res }})
+          .catch(err => {
+            console.log(err)
+          throw err
+          })
         })
+        
         
       
   }

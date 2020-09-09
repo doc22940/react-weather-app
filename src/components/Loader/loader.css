@@ -11,6 +11,12 @@ body {
       left: 50%;
       top: 50%;
   }
+
+  .popup.loader__overlay{
+    background-color: #004b49e0;
+    transition: visibility 0.7s ease, opacity 0.7s;
+     
+  }
   
   svg {
     width: 110px;
@@ -147,13 +153,13 @@ body {
   }
   
   .text {
-      font-family: Helvetica, 'Helvetica Neue', sans-serif;
-      letter-spacing: 1px;
-      text-align: center;
-      margin-left: -43px;
-      font-weight: bold;
-      margin-top: 20px;
-      font-size: 11px;
-      color: #a0a0a0;
-      width: 200px;
+    font-family: 'Rubik', Arial, sans-serif;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-left: -43px;
+    margin-top: 25px;
+    font-size: 17px;
+    color: #fff;
+    width: 200px;
   }

@@ -1,10 +1,10 @@
 import React from 'react';
 import './loader.css';
 
-const Loader = () => {
-    
+const Loader = ({isLoading}) => {
+
     return (
-        <div className='popup popup_is-opened'>
+        <div className={`popup ${isLoading ? 'popup_is-opened' : ''} loader__overlay`}>
         <div className="preloader" style={{opacity: 1}}>
         <svg version="1.1" id="sun" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="10px" height="10px" viewBox="0 0 10 10" enableBackground="new 0 0 10 10" xmlSpace="preserve" style={{opacity: 1, marginLeft: '0px', marginTop: '0px'}}>
           <g>
@@ -39,7 +39,7 @@ const Loader = () => {
           <span className="drop" />
         </div>
         <div className="text">
-          LOOKING OUTSIDE FOR YOU... ONE SEC
+          Загрузка...
         </div>
       </div>
       </div>

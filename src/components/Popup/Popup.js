@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef} from 'react';
+import './popup/popup.css';
 
-const PopupWithForm = ({ title, name, onClose, children }) => {
+const Popup = ({ title, name, onClose, children }) => {
   
   const popup = useRef();
   const smoothClose = useCallback(() => {
@@ -38,7 +39,7 @@ const PopupWithForm = ({ title, name, onClose, children }) => {
         className='popup__close'
         onClick={smoothClose}
         ></button>
-        <h3 className='popup__title'>{title}</h3>
+        {title && <h3 className='popup__title'>{title}</h3>}
         {children}
       </div>
     </div>
@@ -46,4 +47,4 @@ const PopupWithForm = ({ title, name, onClose, children }) => {
   )
 }
 
-export default PopupWithForm;
+export default Popup;

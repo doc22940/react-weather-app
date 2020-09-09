@@ -1,23 +1,22 @@
-.popup__content_details {
+.popup_type_details {
   max-width: 430px;
   min-width: 324px;
   width: 90%;
   font-size: 16px;
   position: relative;
   box-sizing: border-box;
-  padding: 10px;
+  padding: 20px;
 }
 
 .details-popup__card {
   display: flex;
-  flex-direction: column;
-  
+  flex-direction: column;  
   font-family: 'Rubik', Arial, sans-serif;  
   border-radius: 4px;   
   position: relative;
   overflow: hidden;
   height: 346px;
-  padding: 10px;
+  
   align-items: center;  
   background: #67C6BB;  
 }

@@ -16,27 +16,26 @@ const PlaceForm = ({ onAddCardSubmit }) => {
         <input
           name='name'
           ref={register({
-            required: 'Это поле необходимо заполнить',
+            required: 'Без адреса прогноз не сделать...',
             minLength: {
-              value: 2,
-              message: 'Должно быть не менее 2 символов',
+              value: 3,
+              message: 'Не стесняйся, я найду и точный адрес!',
             },
             maxLength: {
-              value: 30,
-              message: 'Должно быть не менее 40 символов',
+              value: 50,
+              message: 'Покороче, пожалуйста',
             },
           })}
           type='text'
           id='place-name'
           className={`popup__input ${errors.name ? 'popup__input_type_error' : ''}`}
-          placeholder='Введите адрес или город'
+          placeholder='По какому адресу нужен прогноз?'
           autoComplete="off"
-        />
-        {errors.name && (
-          <span className='popup__error' id='place-name-error'>
-            {errors.name.message}
-          </span>
-        )}
+        />         
+          <span className={`popup__error ${errors.name ? 'popup__error_visible':''}`} 
+          id='place-name-error'>
+            {errors.name && errors.name.message}
+          </span>        
       </label>
       <Button variant="contained" type='submit'
         className={`button popup__button ${errors.link || errors.name ? 'popup__button_disabled' : 0}`}>

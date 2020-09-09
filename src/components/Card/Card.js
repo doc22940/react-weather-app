@@ -1,12 +1,13 @@
 import React from "react";
 import { capitalize, timeConverter, mapPngToIcon, addPlusOrMinus } from "../../utils/utils";
 import { Link } from "react-router-dom";
-
+import withErrorBoundry from "../hocs/withErrorBoundry";
+import './card/card.css';
 
 const Card = ({ card, onBasketClick }) => {
   return (
     <Link to={`/${card._id}`}>
-    <li className="places__item card">
+    <li className="card">
     <button type="button" className="card__delete-button"
     onClick={onBasketClick}
   ></button>
@@ -34,4 +35,4 @@ const Card = ({ card, onBasketClick }) => {
   );
 };
 
-export default Card;
+export default withErrorBoundry(Card);
