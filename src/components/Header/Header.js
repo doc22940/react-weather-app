@@ -7,7 +7,7 @@ const Header = ({onAddPlace}) => {
       {/* <i className="wi wi-day-sunny logo"></i>     */}
     <h1 className="header__logo">°Синоптик</h1>
     <button 
-      className="profile__add-button" 
+      className="header__add-button" 
       type="button"
       onClick={onAddPlace}
       >+</button>

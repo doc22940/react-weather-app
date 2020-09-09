@@ -35,4 +35,6 @@
 
 .popup_type_not-found {
   z-index: 15;
+  max-width: 382px;
+  min-height: 150px;
 }

@@ -31,8 +31,8 @@ const PopupWithForm = ({ title, name, onClose, children }) => {
 
   return (
     <>
-    <div ref={popup} className={`popup popup_type_${name} `}>
-      <div className='popup__content' >
+    <div ref={popup} className='popup'>
+      <div className={`popup__content popup_type_${name} `}>
         <button 
         type='button' 
         className='popup__close'

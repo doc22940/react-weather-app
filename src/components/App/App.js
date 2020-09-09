@@ -6,13 +6,13 @@ import DetailsPopup from '../DetailsPopup/DetailsPopup';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 
 import PlaceForm from '../PlaceForm/PlaceForm';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 
 import './app.css';
 import { geoApi } from '../../services/GeoYandexApi';
 
-const places = ['Москва', 'Кейптайун', 'Антарктида' ];
+const places = ['Москва', 'Калифорния', 'Веллингтон' ];
 
 const App = () => {
   const [openedPopup, setOpenedPopup] = React.useState({});
@@ -55,21 +55,13 @@ const App = () => {
   };  
 
   return (
-   
-    <Router>
+    <>   
       <Header onAddPlace={handleAddPlaceClick}/>
 
-    {cards.length && <CardsList
+    {cards.length ? <CardsList
         cards={cards}
         onBasketClick={deleteCard} 
-      />}       
-        {searchError && <PopupWithForm
-        title="Адрес не найден"
-        name="not-found"
-        onClose={()=>setSearchError(false)}
-        >
-
-        </PopupWithForm>}
+      /> : ''} 
       {openedPopup.isAddPlacePopupOpen && (
         <PopupWithForm
           title="Новый прогноз"
@@ -79,7 +71,13 @@ const App = () => {
           <PlaceForm onAddCardSubmit={onAddCardSubmit} />
         </PopupWithForm>
       )}
-
+      {searchError && <PopupWithForm
+        title="Упс!"
+        name="not-found"
+        onClose={()=>setSearchError(false)}
+        >
+          <p>Введенный адрес не найден.</p>
+        </PopupWithForm>}
       <Route path="/:id" render={({ match }) => {
           const currentCard = cards.find(({ _id }) => match.params.id === _id);
           return (currentCard && <DetailsPopup 
@@ -87,10 +85,8 @@ const App = () => {
           />) 
         }}
       />
-      <Footer />
-    </Router>
-   
-
+      <Footer /> 
+    </>   
   );
 };
 
