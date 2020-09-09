@@ -3,10 +3,13 @@ import { capitalize, timeConverter, mapPngToIcon, addPlusOrMinus } from "../../u
 import { Link } from "react-router-dom";
 
 
-const Card = ({ card }) => {
+const Card = ({ card, onBasketClick }) => {
   return (
     <Link to={`/${card._id}`}>
     <li className="places__item card">
+    <button type="button" className="card__delete-button"
+    onClick={onBasketClick}
+  ></button>
       <span className="card__adress-main">{card.name}</span>
       <span className="card__adress-second">{card.description}</span>
       <span className="card__adress-second">{timeConverter(card.current.dt, card.timezone_offset)}</span>

@@ -5,12 +5,13 @@ import { Route } from 'react-router-dom';
 
 
 
-const CardsList = ({cards}) => { 
+const CardsList = ({ cards, onBasketClick }) => { 
 
   const cardsElems = cards.map((card)=>{       
     return <Card
     key={card._id}     
-    card={card}         
+    card={card}
+    onBasketClick={()=>onBasketClick(card)}         
     />
   });  
   

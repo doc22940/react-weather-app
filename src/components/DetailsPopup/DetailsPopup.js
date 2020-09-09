@@ -74,6 +74,7 @@ const DetailsPopup = ({ card }) => {
               {`Давление: ${card.current.pressure} мм рт.ст.`}
             </span>
           </div>
+          <hr className='details__border'></hr>
           <div className='details-popup__forecast'>
             <div className='forecast__day'>
               <span className='forecast__day_description'>

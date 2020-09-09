@@ -12,10 +12,11 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './app.css';
 import { geoApi } from '../../services/GeoYandexApi';
 
-const arr = ['Москва', 'Нью-Йорк', 'Париж' ];
+const places = ['Москва', 'Кейптайун', 'Антарктида' ];
 
 const App = () => {
-  const [openedPopup, setOpenedPopup] = React.useState({});  
+  const [openedPopup, setOpenedPopup] = React.useState({});
+  const [searchError, setSearchError] = React.useState(false);
   
   const [cards, setCards] = React.useState([]);
   const searchAndSetCard = place => {    
@@ -24,29 +25,33 @@ const App = () => {
       setCards(cards=>{
         const newCards = JSON.parse(JSON.stringify(cards));
         return [...newCards, card]
-      })      
+      })
+           
     })
   }  
 
   React.useEffect(() => {     
-   arr.forEach(searchAndSetCard)       
+    places.forEach(searchAndSetCard)       
   }, []);
   
   const onAddCardSubmit = ({ name }) => {
     searchAndSetCard(name)    
     .then(closeAllPopups)
-    .catch((err) => console.log('Локация не найдена'));
+    .catch((err) => {
+      setSearchError(err)
+      console.log('Локация не найдена')});
   };
   
   const handleAddPlaceClick = () => {
     setOpenedPopup({ isAddPlacePopupOpen: true });
   };
-  const handleBasketIconClick = card => {
-    
+
+  const deleteCard = card => {    
+   const ind = cards.findIndex(el => el._id === card._id);
+   setCards([...cards.slice(0, ind), ...cards.slice(ind + 1)]);
   };
   const closeAllPopups = () => {
-    setOpenedPopup({});
-    
+    setOpenedPopup({});    
   };  
 
   return (
@@ -56,9 +61,15 @@ const App = () => {
 
     {cards.length && <CardsList
         cards={cards}
-        handleBasketIconClick={handleBasketIconClick} 
+        onBasketClick={deleteCard} 
       />}       
+        {searchError && <PopupWithForm
+        title="Адрес не найден"
+        name="not-found"
+        onClose={()=>setSearchError(false)}
+        >
 
+        </PopupWithForm>}
       {openedPopup.isAddPlacePopupOpen && (
         <PopupWithForm
           title="Новый прогноз"
@@ -71,9 +82,9 @@ const App = () => {
 
       <Route path="/:id" render={({ match }) => {
           const currentCard = cards.find(({ _id }) => match.params.id === _id);
-          return <DetailsPopup 
+          return (currentCard && <DetailsPopup 
             card={currentCard}               
-            /> 
+          />) 
         }}
       />
       <Footer />

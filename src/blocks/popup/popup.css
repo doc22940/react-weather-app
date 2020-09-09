@@ -33,3 +33,6 @@
   z-index: 10;
 }
 
+.popup_type_not-found {
+  z-index: 15;
+}

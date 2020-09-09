@@ -7,6 +7,10 @@ class OpenWeatherApi {
   getWeather = ({lat, lon}) => {           
     return fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${this._APIkey}&lang=ru`)
     .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+    .then(res=>{
+      console.log(res)
+      return res
+    })
     .then(({ current, daily, hourly, timezone_offset }) => {
        
       current = { ...current, ...current.weather[0] };

@@ -55,7 +55,7 @@
 .card__main-condition {
   margin-top: auto;
   font-size: 23px;
-  margin-bottom: 18px;
+  /* margin-bottom: 18px; */
 }
 
 .card__adress-main {
