@@ -1,3 +1,9 @@
+## Приложение по прогнозам погоды "Синоптик"
+Выдает прогнозы погоды по разным адресам.
+По клику на локацию открывается прогноз на неделю вперед.
+Адреса можно добавлять как по городу так и по точному адресу.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
