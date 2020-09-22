@@ -6,7 +6,7 @@ const PlaceForm = ({ onAddCardSubmit }) => {
   const { handleSubmit, register, errors } = useForm({
     mode: 'onChange',
   });
-  const handleData = (data) => {    
+  const handleData = (data) => {      
     onAddCardSubmit(data);
   };
 

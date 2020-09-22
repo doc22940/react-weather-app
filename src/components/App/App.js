@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import Header from "../Header/Header";
 import CardsList from "../CardsList/CardsList";
 import Footer from "../Footer/Footer";
@@ -6,78 +6,48 @@ import DetailsPopup from "../DetailsPopup/DetailsPopup";
 import Popup from "../Popup/Popup";
 import PlaceForm from "../PlaceForm/PlaceForm";
 import { Route } from "react-router-dom";
-import { geoApi } from "../../services/GeoYandexApi";
 import withErrorBoundry from "../hocs/withErrorBoundry";
 import "./app.css";
 import Loader from "../Loader/Loader";
-
+import withGeoApi from "../hocs/withGeoApi";
+import {addWeather, disableLoading, openAddPlacePopup, closePopup, errorWeather, enableLoading, deleteCard} from '../../actions'
+import { connect } from "react-redux";
 
 const places = ["Москва", "Калифорния", "Веллингтон"];
 
-const App = () => {
-  const [cards, setCards] = React.useState([]);
-  const [openedPopup, setOpenedPopup] = React.useState({});
-  const [searchError, setSearchError] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(true)
-  const desableLoading = () => setTimeout(() => {
-    setIsLoading(false);
-  }, 1000)
-  
-  const getWeatherData = place => {
-    setIsLoading(true);
-    return geoApi.getCoords(place).then(card => {
-      setCards(cards => {
-        const newCards = JSON.parse(JSON.stringify(cards));
-        return [...newCards, card];
-      });
-      desableLoading();
-    });
-  };
+const App = ({cards, isLoading, getWeatherData, openedPopup, openAddPlacePopup, closePopup, errorWeather, error, deleteCard}) => {      
 
   React.useEffect(() => {
     places.forEach(getWeatherData);
   }, []);
 
-  const onAddCardSubmit = ({ name }) => {
+  const onAddCardSubmit = ({ name }) => {    
     getWeatherData(name)
-      .then(closeAllPopups)
+      .then(closePopup)
       .catch(err => {
-        setSearchError(err);
-        desableLoading();          
+        errorWeather(err);               
       });
-  };
-
-  const handleAddPlaceClick = () => {
-    setOpenedPopup({ isAddPlacePopupOpen: true });
-  };
-
-  const deleteCard = card => {
-    const ind = cards.findIndex(el => el._id === card._id);
-    setCards([...cards.slice(0, ind), ...cards.slice(ind + 1)]);
-  };
-  const closeAllPopups = () => {
-    setOpenedPopup({});
-  };
-
+  }; 
+  
   return (
     <>
-      <Header onAddPlace={handleAddPlaceClick} />       
+      <Header onAddPlace={openAddPlacePopup} />       
       <CardsList cards={cards} onBasketClick={deleteCard} />      
 
       {openedPopup.isAddPlacePopupOpen && (
         <Popup
           title="Новый прогноз"
           name="new-card"
-          onClose={closeAllPopups} >
+          onClose={closePopup} >
           <PlaceForm onAddCardSubmit={onAddCardSubmit} />
         </Popup>
       )}
 
-      {searchError && (
+      {error && (
         <Popup
           title="Упс!"
           name="not-found"
-          onClose={() => setSearchError(false)}>
+          onClose={() => errorWeather(null)}>
           <p>Адрес не найден.</p>
         </Popup>
       )}
@@ -101,5 +71,30 @@ const App = () => {
   );
 };
 
-export default withErrorBoundry(App);
+const mapStateToProps = ({cards, isLoading, openedPopup, error}) => ({
+  cards,
+  isLoading,
+  openedPopup,
+  error
+})
+
+const mapDispatchToProps = (dispatch, { geoApi }) => {
+  return {
+    enableLoading: () => dispatch(enableLoading()),
+    getWeatherData: (place) => {
+      dispatch(enableLoading());
+      return geoApi.getCoords(place).then((card) => {
+        dispatch(addWeather(card));
+        setTimeout(() => dispatch(disableLoading()), 1000);
+      });
+    },
+    openAddPlacePopup: () => dispatch(openAddPlacePopup()),
+    closePopup: () => dispatch(closePopup()),
+    errorWeather: (err) => dispatch(errorWeather(err)),
+    deleteCard: (card)=> dispatch(deleteCard(card)),
+  };
+};
+
+
+export default withErrorBoundry(withGeoApi(connect(mapStateToProps, mapDispatchToProps)(App)));
 
